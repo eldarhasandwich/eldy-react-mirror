@@ -71,13 +71,13 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
+    fullscreen: true,
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
         : path.join(__dirname, '../../.erb/dll/preload.js'),
+      webSecurity: false // TODO: this is very bad, should seek to get alternate implementation working: https://pratikpc.medium.com/bypassing-cors-with-electron-ab7eaf331605
     },
   });
 
@@ -106,6 +106,21 @@ const createWindow = async () => {
     shell.openExternal(edata.url);
     return { action: 'deny' };
   });
+
+  // mainWindow.webContents.session.webRequest.onBeforeSendHeaders(
+  //   (details, callback) => {
+  //     callback({ requestHeaders: { Origin: '*', ...details.requestHeaders } });
+  //   },
+  // );
+
+  // mainWindow.webContents.session.webRequest.onHeadersReceived((details, callback) => {
+  //   callback({
+  //     responseHeaders: {
+  //       'Access-Control-Allow-Origin': ['*'],
+  //       ...details.responseHeaders,
+  //     },
+  //   });
+  // });
 
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line

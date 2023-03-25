@@ -9,11 +9,9 @@ export const Heading: React.FC<{
 }> = (props) => {
 
     const { 
-        content,
         fontSize,
         fontWeight,
-        opacity,
-        disableMargins
+        opacity
     } = props
 
     return (
@@ -21,9 +19,38 @@ export const Heading: React.FC<{
             fontSize,
             fontWeight,
             opacity,
-            margin: disableMargins ? 0 : undefined,
+            margin: props.disableMargins ? 0 : undefined,
         }}>
-            {content}
+            {props.content}
         </h1>
+    )
+}
+
+export const TableCell: React.FC<{
+    content: string
+    fontSize?: number
+    fontWeight?: number
+    colour?: string
+    opacity?: number
+}> = (props) => {
+
+    const {
+        colour,
+        fontSize,
+        fontWeight,
+        opacity
+    } = props;
+
+    return (
+        <td
+            style={{
+                color: colour,
+                fontSize,
+                fontWeight,
+                opacity
+            }}
+        >
+            {props.content}
+        </td>
     )
 }

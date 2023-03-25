@@ -1,5 +1,6 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import AppContext from 'renderer/AppContext';
 import { Heading } from '../Display/Text';
 import { getTimes } from './SunCalc';
 import { get12HrTime, get24HrTime, getDeltaTime } from './utils';
@@ -13,7 +14,8 @@ const DailyCountdown: React.FC<{
 
     return <Heading
         content={countdownText}
-        fontWeight={200}
+        fontSize={24}
+        fontWeight={300}
         opacity={countdownText.includes("ago") ? 0.4 : 1 }
     />
 }
@@ -29,7 +31,10 @@ const Clock: React.FC = () => {
         return () => clearInterval(interval);
     }, []);
 
-    const { sunrise, sunset } = getTimes(currentTime, 30.266666, -97.73333); // austin coords
+    const { location } = useContext(AppContext)
+    const { long, lat } = location.coords
+
+    const { sunrise, sunset } = getTimes(currentTime, lat, long);
 
     return (
         <>
