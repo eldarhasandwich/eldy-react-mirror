@@ -48,7 +48,8 @@ const CountdownList: React.FC = () => {
                     return (
                         <div style={{
                             opacity,
-                            color
+                            color,
+                            fontSize: 30
                         }}>
                             <span>{name + ' >>> '}</span>
                             <span>{timeString}</span>

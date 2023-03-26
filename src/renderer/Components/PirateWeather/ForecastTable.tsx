@@ -12,7 +12,7 @@ const ForecastTable: React.FC<{
     const daily = props.weatherUpdateJson.daily.data
 
     return (
-        <table style={{textAlign: 'right'}}>
+        <table style={{textAlign: 'right', marginLeft: 'auto'}}>
             {
                 daily.map((day, index) => {
 
@@ -23,7 +23,7 @@ const ForecastTable: React.FC<{
                     const opacity = (1/5) * (daily.length - index)
 
                     return (
-                        <tr style={{ opacity, alignContent: 'end' }}>
+                        <tr style={{ opacity, fontSize: 24 }}>
                             <TableCell content={displayDay} />
                             <span style={{ marginLeft: spacing }}/>
 
@@ -39,8 +39,6 @@ const ForecastTable: React.FC<{
                             <TableCell content={'/'} colour={lowTempColour} />
                             <span style={{ marginLeft: spacing / 10 }}/>
                             <TableCell content={lows.c + '°C'} colour={lowTempColour} />
-                            <span style={{ marginLeft: spacing }}/>
-
                         </tr>
                     )
                 })

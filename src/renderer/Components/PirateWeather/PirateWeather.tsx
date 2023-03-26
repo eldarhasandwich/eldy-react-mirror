@@ -37,10 +37,11 @@ const PirateWeather: React.FC = () => {
     const { actual, feelsLike } = getActualAndFeelsLikeFromDatapoint(nowWeatherDatapoint)
 
     const locationTitle = `Weather | ${weatherUpdateJson.merry.location.name}`
-    const actualTemperature = `${actual.f}°F / ${actual.c}°C /// ${nowWeatherDatapoint.summary}`
+    const summary = nowWeatherDatapoint.summary
+    const actualTemperature = `${actual.f}°F / ${actual.c}°C`
     const feelsLikeTemperature = `Feels like ${feelsLike.f}°F / ${feelsLike.c}°C`;
     const extraInfo = `
-        ${roundToOneDecimal(weatherUpdateJson.currently.humidity * 100)}% Humidity /// ${roundToOneDecimal(weatherUpdateJson.currently.cloudCover * 100)}% Cloud cover`
+        ${roundToOneDecimal(weatherUpdateJson.currently.humidity * 100)}% Humidity / ${roundToOneDecimal(weatherUpdateJson.currently.cloudCover * 100)}% Cloud cover`
 
     return (
         <>
@@ -51,9 +52,16 @@ const PirateWeather: React.FC = () => {
             />
 
             <Heading
+                content={summary}
+                fontSize={28}
+                fontWeight={200}
+            />
+
+            <Heading
                 content={actualTemperature}
                 fontSize={56}
                 fontWeight={100}
+                disableMargins
             />
 
             <Heading
