@@ -13,8 +13,8 @@ const appConfig: AppContextType = {
     }
   },
   countdownList: [
-    { name: "Ramadan Starts", date: "March 22 2023" },
-    { name: "Ramadan Ends", date: "April 21 2023" },
+    { name: "Kyary Concert", date: "May 17 2023" },
+    { name: "Eurovision Starts", date: "May 9 2023" },
     { name: "Paramore Concert", date: "July 9 2023" },
     {
       name: "Maddie Birthday",
@@ -27,6 +27,10 @@ const appConfig: AppContextType = {
     {
       name: "Fly out to Kentucky",
       date: "June 21 2023"
+    },
+    {
+      name: "FOB Concert",
+      date: "June 28 2023"
     },
     { name: "Starfield Launch", date: "September 6 2023" },
     {
