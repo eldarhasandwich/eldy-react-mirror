@@ -33,7 +33,7 @@ const celciusToFahrenheit = (c: number) => {
 	return c * (9 / 5) + 32;
 };
 
-export const getTranslatedUnitsForCelciusValue = (c) => {
+export const getTranslatedUnitsForCelciusValue = (c: number) => {
 	return {
 		c: roundToOneDecimal(c),
 		f: roundToOneDecimal(celciusToFahrenheit(c))

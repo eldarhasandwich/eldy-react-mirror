@@ -1,23 +1,32 @@
 import React from "react"
 
+export interface SECRETS {
+    teslascopeApiKey?: string
+}
+
 interface Coords {
     long: number
     lat: number
 }
 
-interface CountdownListItem {
+export interface CountdownListItem {
     name: string
     date: string
 }
 
 export interface AppContextType {
+    secrets: SECRETS,
     location: {
         coords: Coords
     },
-    countdownList: CountdownListItem[]
+    countdownList: CountdownListItem[],
+    teslascope?: {
+        vehiclePublicId: string
+    }
 }
 
 const contextDefault: AppContextType = {
+    secrets: {},
     location: {
         coords: {
             long: 0,

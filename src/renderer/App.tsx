@@ -4,8 +4,14 @@ import './App.css';
 import Clock from './Components/Clock/Clock';
 import PirateWeather from './Components/PirateWeather/PirateWeather';
 import CountdownList from './Components/CountdownList/CountdownList';
+import TeslaStats from './Components/TeslaStats/TeslaStats';
+
+const secrets = require('../../secrets.json')
 
 const appConfig: AppContextType = {
+  secrets: {
+    ...secrets
+  },
   location: {
     coords: {
       long: -97.814625,
@@ -58,7 +64,10 @@ const appConfig: AppContextType = {
       name: "Eldy Birthday",
       date: "June 8 2024"
     }
-  ]
+  ],
+  teslascope: {
+    vehiclePublicId: 'GsNy'
+  }
 }
 
 export default function App() {
@@ -86,6 +95,7 @@ export default function App() {
             float: 'right',
             textAlign: 'right'
         }}>
+          <TeslaStats/>
           <PirateWeather/>
         </div>
 

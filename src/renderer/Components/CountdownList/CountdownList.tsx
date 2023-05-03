@@ -1,20 +1,47 @@
-import React, { useContext } from 'react'
-import AppContext from 'renderer/AppContext'
+import React, { useContext, useEffect, useState } from 'react'
+import AppContext, { CountdownListItem } from 'renderer/AppContext'
+import { BLUE, GREEN } from 'renderer/constants';
 
 const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+
+const MILLISECONDS_PER_HOUR = 1000 * 60 * 60;
+
+interface TimeUntil {
+    millisecondsUntil: number;
+    name: string;
+    date: string;
+}
+
+const parseAndSetTimeUntils = (
+    countdownList: CountdownListItem[], 
+    setFn: React.Dispatch<React.SetStateAction<TimeUntil[]>>
+) => {
+    setFn(countdownList.map((item) => {
+        const n = Date.now();
+        const t = new Date(item.date)[Symbol.toPrimitive]("number");
+        return {
+            ...item,
+            millisecondsUntil: t - n
+        };
+    }).sort((a, b) => a.millisecondsUntil - b.millisecondsUntil))
+}
 
 const CountdownList: React.FC = () => {
 
     const { countdownList } = useContext(AppContext)
 
-    const timeUntils = countdownList.map((item) => {
-		const n = Date.now();
-		const t = new Date(item.date)[Symbol.toPrimitive]("number");
-		return {
-			...item,
-			millisecondsUntil: t - n
-		};
-	}).sort((a, b) => a.millisecondsUntil - b.millisecondsUntil);
+    const [ timeUntils, setTimeUntils ] = useState<TimeUntil[]>([])
+
+    useEffect(() => {
+        parseAndSetTimeUntils(countdownList, setTimeUntils)
+
+        const interval = setInterval(() => {
+
+            parseAndSetTimeUntils(countdownList, setTimeUntils)
+
+        }, MILLISECONDS_PER_HOUR);
+        return () => clearInterval(interval)
+    }, [])
 
     return (
         <div style={{
@@ -35,10 +62,10 @@ const CountdownList: React.FC = () => {
                     let color = ""
                     if (dayIsToday) {
                         timeString = "Today!!!"
-                        color = '#6495ED'
+                        color = BLUE
                     } else if (dateHasPassed) {
                         timeString = `${time * -1} days ago`
-                        color = '#90EE90'
+                        color = GREEN
                     } else {
                         timeString = `${time} days`
                     }
