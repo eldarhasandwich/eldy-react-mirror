@@ -13,6 +13,7 @@ const appConfig: AppContextType = {
     }
   },
   countdownList: [
+    { name: "Brand New Day", date: "May 3 2023" },
     { name: "Kyary Concert", date: "May 17 2023" },
     { name: "Eurovision Starts", date: "May 9 2023" },
     { name: "Paramore Concert", date: "July 9 2023" },
