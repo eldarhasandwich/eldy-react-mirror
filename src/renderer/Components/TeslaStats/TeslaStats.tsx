@@ -88,12 +88,12 @@ const TeslaStats: React.FC = () => {
             />
 
             <div style={{
-                color: chargeLevelColor
+                color: chargeLevelColor,
+                marginTop: '15px'
             }}>
                 <Heading
                     content={chargeLevelString}
-                    fontSize={56}
-                    fontWeight={100}
+                    fontWeight={200}
                     disableMargins
                 />
             </div>
@@ -105,15 +105,16 @@ const TeslaStats: React.FC = () => {
             }}>
                 <div style={{
                     width: '500px',
-                    height: '15px',
+                    height: '6px',
                     backgroundColor: '#222',
-                    marginTop: '20px',
+                    marginTop: '5px',
                 }}>
                     <div
                         style={{
                             height: '100%',
                             width: `${vehicleStats.battery.level}%`,
-                            backgroundColor: chargeLevelColor
+                            backgroundColor: chargeLevelColor,
+                            float: 'right'
                         }}
                     />
                 </div>
@@ -131,7 +132,8 @@ const TeslaStats: React.FC = () => {
 
             <Heading
                 content={temperatureString}
-                fontWeight={200}
+                fontSize={26}
+                fontWeight={300}
             />
 
         </div>
