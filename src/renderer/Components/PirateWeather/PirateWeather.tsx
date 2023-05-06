@@ -53,7 +53,6 @@ const PirateWeather: React.FC = () => {
     const { location } = useContext(AppContext)
     const { long, lat } = location.coords
 
-
     // fetch weather data loop
     useEffect(() => {
         const fetchAndSetWeather = async () => {
@@ -83,7 +82,7 @@ const PirateWeather: React.FC = () => {
             getAndSetInterpolatedDatapoint()
         }, 1000)
         return () => clearInterval(interval)
-    }, [])
+    }, [weatherUpdateJson])
 
     if (!weatherUpdateJson) return null
 
