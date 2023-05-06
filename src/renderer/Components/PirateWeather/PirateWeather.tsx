@@ -10,11 +10,14 @@ import {
     roundToOneDecimal,
 } from './utils';
 
+import { get12HrTime } from '../Clock/utils'
+
 const ONE_HOUR_MS = 60 * 60 * 1000
 
 const PirateWeather: React.FC = () => {
 
     const [ weatherUpdateJson, setWeatherUpdateJson ] = useState<ExpectedWeatherUpdateJson | undefined>(undefined)
+    const [ lastFetchTime, setLastFetchTime ] = useState<Date>(new Date(Date.now()))
 
     const { location } = useContext(AppContext)
     const { long, lat } = location.coords
@@ -22,6 +25,7 @@ const PirateWeather: React.FC = () => {
     useEffect(() => {
         const fetchAndSetWeather = async () => {
             setWeatherUpdateJson(await fetchPirateWeatherUpdate(long, lat))
+            setLastFetchTime(new Date(Date.now()))
         }
 
         fetchAndSetWeather()
@@ -36,7 +40,7 @@ const PirateWeather: React.FC = () => {
     const nowWeatherDatapoint = getCurrentWeatherFromHourlyArray(weatherUpdateJson);
     const { actual, feelsLike } = getActualAndFeelsLikeFromDatapoint(nowWeatherDatapoint)
 
-    const locationTitle = `Weather | ${weatherUpdateJson.merry.location.name}`
+    const locationTitle = `PirateWeather | Cedar Park, TX | Last fetch @ ${ get12HrTime(lastFetchTime) }`
     const summary = nowWeatherDatapoint.summary
     const actualTemperature = `${actual.f}°F / ${actual.c}°C`
     const feelsLikeTemperature = `Feels like ${feelsLike.f}°F / ${feelsLike.c}°C`;

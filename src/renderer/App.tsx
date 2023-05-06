@@ -19,7 +19,6 @@ const appConfig: AppContextType = {
     }
   },
   countdownList: [
-    { name: "Brand New Day", date: "May 3 2023" },
     { name: "Kyary Concert", date: "May 17 2023" },
     { name: "Eurovision Starts", date: "May 9 2023" },
     { name: "Paramore Concert", date: "July 9 2023" },
@@ -96,6 +95,14 @@ export default function App() {
             textAlign: 'right'
         }}>
           <TeslaStats/>
+
+          <div style={{ 
+            height: '1px',
+            width: '100%',
+            backgroundImage: 'linear-gradient(to right, transparent, #666)',
+            margin: '30px 0',
+          }}/>
+
           <PirateWeather/>
         </div>
 

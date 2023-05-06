@@ -4,6 +4,7 @@ import { Heading } from '../Display/Text';
 import { VehicleStatsResponse, fahrenheitToCelcius, fetchVehicleStats } from './utils';
 import AppContext from 'renderer/AppContext';
 import { BLUE, GREEN } from 'renderer/constants';
+import { get12HrTime } from '../Clock/utils';
 // import AppContext from 'renderer/AppContext'
 
 export interface BatteryInfo {
@@ -24,6 +25,7 @@ const TeslaStats: React.FC = () => {
     const { teslascope, secrets } = useContext(AppContext);
 
     const [ vehicleStats, setVehicleStats ] = useState<VehicleStatsResponse | undefined>(undefined);
+    const [ lastFetchTime, setLastFetchTime ] = useState<Date>(new Date(Date.now()))
 
     if (!teslascope) {
         return (<></>)
@@ -32,11 +34,7 @@ const TeslaStats: React.FC = () => {
     useEffect(() => {
         const fetchAndSetVehicleStats = async () => {
             let vehicleStats = await fetchVehicleStats(teslascope.vehiclePublicId, secrets.teslascopeApiKey)
-
-            // vehicleStats = { ...vehicleStats, battery: { ...vehicleStats?.battery, level: 59, charging_state: 'Complete' } }
-
-            // console.log({vehicleStats})
-
+            setLastFetchTime(new Date(Date.now()))
             setVehicleStats(vehicleStats)
         }
 
@@ -65,7 +63,7 @@ const TeslaStats: React.FC = () => {
 
     if (isCharging) {
 
-        chargeLevelString = `${vehicleStats.battery.charging_state} | ${vehicleStats.battery.level}%/${vehicleStats.battery.charge_limit_soc}%`
+        chargeLevelString = `${vehicleStats.battery.charging_state} | ${vehicleStats.battery.level}/${vehicleStats.battery.charge_limit_soc}%`
         chargeLevelColor = GREEN
 
     }
@@ -80,9 +78,9 @@ const TeslaStats: React.FC = () => {
     const temperatureString = `Interior: ${vehicleStats.climate.inside}°F / ${fahrenheitToCelcius(vehicleStats.climate.inside)}°C`
 
     return (
-        <div style={{marginBottom: '100px'}} >
+        <div style={{}} >
             <Heading
-                content={'Teslascope | Orange Eye Gemini'}
+                content={`Teslascope | Orange Eye Gemini | Last fetch @ ${ get12HrTime(lastFetchTime) }`}
                 fontSize={14}
                 fontWeight={400}
             />
@@ -104,9 +102,9 @@ const TeslaStats: React.FC = () => {
                 justifyContent: 'flex-end'
             }}>
                 <div style={{
-                    width: '500px',
+                    width: '600px',
                     height: '6px',
-                    backgroundColor: '#222',
+                    backgroundColor: '#555',
                     marginTop: '5px',
                 }}>
                     <div

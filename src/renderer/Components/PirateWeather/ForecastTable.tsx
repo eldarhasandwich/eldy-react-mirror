@@ -23,7 +23,7 @@ const ForecastTable: React.FC<{
                     const opacity = (1/5) * (daily.length - index)
 
                     return (
-                        <tr style={{ opacity, fontSize: 24 }}>
+                        <tr style={{ opacity, fontSize: 18, fontWeight: 400 }}>
                             <TableCell content={displayDay} />
                             <span style={{ marginLeft: spacing }}/>
 
