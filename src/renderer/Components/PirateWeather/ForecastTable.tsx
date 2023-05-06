@@ -1,10 +1,10 @@
 import React from 'react'
 import { TableCell } from '../Display/Text'
-import { dayArray, ExpectedWeatherUpdateJson, getTranslatedUnitsForCelciusValue } from './utils'
+import { dayArray, ExpectedWeatherUpdateJson, getTranslatedUnitsForCelciusValue, roundToOneDecimal } from './utils'
 
 const highTempColour = 'coral'
 const lowTempColour = '#6495ED'
-const spacing = 15
+const spacing = 30
 
 const ForecastTable: React.FC<{
     weatherUpdateJson: ExpectedWeatherUpdateJson
@@ -16,8 +16,8 @@ const ForecastTable: React.FC<{
             {
                 daily.map((day, index) => {
 
-                    const highs = getTranslatedUnitsForCelciusValue(day.temperatureMax);
-                    const lows = getTranslatedUnitsForCelciusValue(day.temperatureMin);      
+                    const highs = getTranslatedUnitsForCelciusValue(day.temperatureMax, roundToOneDecimal);
+                    const lows = getTranslatedUnitsForCelciusValue(day.temperatureMin, roundToOneDecimal);      
                     
                     const displayDay = index === 0 ? "Today" : dayArray[new Date(day.time * 1000).getDay()];
                     const opacity = (1/5) * (daily.length - index)

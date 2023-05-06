@@ -41,7 +41,7 @@ const TeslaStats: React.FC = () => {
         fetchAndSetVehicleStats()
         const interval = setInterval(() => {
             fetchAndSetVehicleStats()
-        }, 10 * ONE_MINUTE_MS);
+        }, 9 * ONE_MINUTE_MS);
         return () => clearInterval(interval);
     }, []);
 
