@@ -19,8 +19,6 @@ const appConfig: AppContextType = {
     }
   },
   countdownList: [
-    { name: "Kyary Concert", date: "May 17 2023" },
-    { name: "Eurovision Starts", date: "May 9 2023" },
     { name: "Paramore Concert", date: "July 9 2023" },
     {
       name: "Maddie Birthday",
@@ -54,14 +52,6 @@ const appConfig: AppContextType = {
     {
       name: "Valentines Day",
       date: "Febuary 14 2024"
-    },
-    {
-      name: "Maddie Birthday",
-      date: "May 28 2024"
-    },
-    {
-      name: "Eldy Birthday",
-      date: "June 8 2024"
     }
   ],
   teslascope: {
