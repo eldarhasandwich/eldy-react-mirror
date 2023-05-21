@@ -5,6 +5,7 @@ import { VehicleStatsResponse, fahrenheitToCelcius, fetchVehicleStats } from './
 import AppContext from 'renderer/AppContext';
 import { BLUE, GREEN } from 'renderer/constants';
 import { get12HrTime } from '../Clock/utils';
+import { SpanDecimalNumbers } from '../Display/SpanDecimalNumbers';
 // import AppContext from 'renderer/AppContext'
 
 export interface BatteryInfo {
@@ -128,11 +129,17 @@ const TeslaStats: React.FC = () => {
                 )
             }
 
-            <Heading
-                content={temperatureString}
-                fontSize={26}
-                fontWeight={300}
-            />
+            <h1 style={{
+                fontSize: 28,
+                fontWeight: 200,
+                // margin: 0
+            }}>
+                <SpanDecimalNumbers
+                    text={temperatureString}
+                    fontSize={20}
+                />
+            </h1>
+            
 
         </div>
     )

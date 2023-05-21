@@ -26,7 +26,7 @@ const ForecastTable: React.FC<{
                         <tr style={{ opacity, fontSize: 18, fontWeight: 400 }}>
                             <TableCell content={displayDay} />
                             <span style={{ marginLeft: spacing }}/>
-
+                            
                             <TableCell content={highs.f + '°F'} colour={highTempColour} />
                             <span style={{ marginLeft: spacing / 10 }}/>
                             <TableCell content={'/'} colour={highTempColour} />

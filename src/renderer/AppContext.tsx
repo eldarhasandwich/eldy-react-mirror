@@ -12,6 +12,7 @@ interface Coords {
 export interface CountdownListItem {
     name: string
     date: string
+    repeatsAnnually?: boolean
 }
 
 export interface AppContextType {

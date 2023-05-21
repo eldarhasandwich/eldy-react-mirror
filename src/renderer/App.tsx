@@ -19,14 +19,15 @@ const appConfig: AppContextType = {
     }
   },
   countdownList: [
-    { name: "Paramore Concert", date: "July 9 2023" },
     {
-      name: "Maddie Birthday",
-      date: "May 28 2023"
+      name: "Linlin Birthday",
+      date: "May 28",
+      repeatsAnnually: true
     },
     {
       name: "Eldy Birthday",
-      date: "June 8 2023"
+      date: "June 8",
+      repeatsAnnually: true
     },
     {
       name: "Fly out to Kentucky",
@@ -37,21 +38,30 @@ const appConfig: AppContextType = {
       date: "June 28 2023"
     },
     { name: "Starfield Launch", date: "September 6 2023" },
+    { name: "Paramore Concert", date: "July 9 2023" },
     {
-      name: "Halloween",
+      name: "Marriage",
       date: "October 31 2023"
     },
     {
+      name: "Halloween",
+      date: "October 31",
+      repeatsAnnually: true
+    },
+    {
       name: "Christmas",
-      date: "December 25 2023"
+      date: "December 25",
+      repeatsAnnually: true
     },
     {
       name: "New Years",
-      date: "January 1 2024"
+      date: "January 1",
+      repeatsAnnually: true
     },
     {
       name: "Valentines Day",
-      date: "Febuary 14 2024"
+      date: "Febuary 14",
+      repeatsAnnually: true
     }
   ],
   teslascope: {

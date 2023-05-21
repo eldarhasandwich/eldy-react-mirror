@@ -18,7 +18,16 @@ const parseAndSetTimeUntils = (
 ) => {
     setFn(countdownList.map((item) => {
         const n = Date.now();
-        const t = new Date(item.date)[Symbol.toPrimitive]("number");
+        let t = new Date(item.date)[Symbol.toPrimitive]("number");
+
+        if (item.repeatsAnnually) {
+            while ((t - n) < (MILLISECONDS_PER_DAY * -10)) {
+                const t_Date = new Date(t)
+                t_Date.setFullYear(t_Date.getFullYear() + 1)
+                t = t_Date[Symbol.toPrimitive]("number");
+            }
+        }
+
         return {
             ...item,
             millisecondsUntil: t - n
