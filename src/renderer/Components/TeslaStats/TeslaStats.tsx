@@ -28,9 +28,38 @@ const TeslaStats: React.FC = () => {
     const [ vehicleStats, setVehicleStats ] = useState<VehicleStatsResponse | undefined>(undefined);
     const [ lastFetchTime, setLastFetchTime ] = useState<Date>(new Date(Date.now()))
 
+    const [ chargeAnimation, setChargeAnimation ] = useState<string>('')
+
     if (!teslascope) {
         return (<></>)
     }
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            let newFrame = ''
+
+            const t = Math.floor((Date.now() / 1000))
+            const n = t % 4
+
+            console.log({t, n})
+
+            if (n == 0) newFrame = ''
+            if (n == 1) newFrame = '<'
+            if (n == 2) newFrame = '< <'
+            if (n == 3) newFrame = '< < <'
+
+            setChargeAnimation(newFrame)
+
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         setChargeAnimation(Date.now().toString())
+    //     }, 1000);
+    //     return () => clearInterval(interval);
+    // }, []);
 
     useEffect(() => {
         const fetchAndSetVehicleStats = async () => {
@@ -64,7 +93,7 @@ const TeslaStats: React.FC = () => {
 
     if (isCharging) {
 
-        chargeLevelString = `${vehicleStats.battery.charging_state} | ${vehicleStats.battery.level}/${vehicleStats.battery.charge_limit_soc}%`
+        chargeLevelString = `${chargeAnimation} Charging | ${vehicleStats.battery.level}/${vehicleStats.battery.charge_limit_soc}%`
         chargeLevelColor = GREEN
 
     }
