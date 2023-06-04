@@ -35,31 +35,27 @@ const TeslaStats: React.FC = () => {
     }
 
     useEffect(() => {
+
+        const animationFrames = [
+            '',
+            '<',
+            '< <',
+            '< < <',
+            '< < < <',
+            '< < < < <',
+            '< < < < < <'
+        ]
+
         const interval = setInterval(() => {
-            let newFrame = ''
+            const n = 2
+            const t = Math.floor(((Date.now() * n) / (1000 / n)))
+            const i = t % animationFrames.length
 
-            const t = Math.floor((Date.now() / 1000))
-            const n = t % 4
+            setChargeAnimation(animationFrames[i])
 
-            console.log({t, n})
-
-            if (n == 0) newFrame = ''
-            if (n == 1) newFrame = '<'
-            if (n == 2) newFrame = '< <'
-            if (n == 3) newFrame = '< < <'
-
-            setChargeAnimation(newFrame)
-
-        }, 1000);
+        }, 250);
         return () => clearInterval(interval);
     }, []);
-
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         setChargeAnimation(Date.now().toString())
-    //     }, 1000);
-    //     return () => clearInterval(interval);
-    // }, []);
 
     useEffect(() => {
         const fetchAndSetVehicleStats = async () => {

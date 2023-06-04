@@ -71,10 +71,10 @@ const CountdownList: React.FC = () => {
                     let color = ""
                     if (dayIsToday) {
                         timeString = "Today!!!"
-                        color = BLUE
+                        color = GREEN
                     } else if (dateHasPassed) {
                         timeString = `${time * -1} days ago`
-                        color = GREEN
+                        color = BLUE
                     } else {
                         timeString = `${time} days`
                     }
