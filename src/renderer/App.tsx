@@ -38,6 +38,8 @@ const appConfig: AppContextType = {
       date: "June 28 2023"
     },
     { name: "Starfield Launch", date: "September 6 2023" },
+    { name: "Cities: Skylines II Launch", date: "October 24 2023" },
+    { name: "Payday 3 Launch", date: "September 21 2023" },
     { name: "Paramore Concert", date: "July 9 2023" },
     {
       name: "Marriage",
