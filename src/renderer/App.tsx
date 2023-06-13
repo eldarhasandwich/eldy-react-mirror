@@ -41,6 +41,8 @@ const appConfig: AppContextType = {
     { name: "Cities: Skylines II Launch", date: "October 24 2023" },
     { name: "Payday 3 Launch", date: "September 21 2023" },
     { name: "Paramore Concert", date: "July 9 2023" },
+    { name: "Annular Solar Eclipse", date: "October 14 2023" },
+    { name: "Total Solar Eclipse", date: "April 8 2024" },
     {
       name: "Marriage",
       date: "October 31 2023"
