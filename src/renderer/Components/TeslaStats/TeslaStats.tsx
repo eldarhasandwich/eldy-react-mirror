@@ -43,10 +43,10 @@ const TeslaStats: React.FC = () => {
             '< < <',
             '< < < <',
             '< < < < <',
-            '< < < < < <'
         ]
 
         const interval = setInterval(() => {
+            // don't ask, but it works
             const n = 2
             const t = Math.floor(((Date.now() * n) / (1000 / n)))
             const i = t % animationFrames.length
@@ -107,7 +107,7 @@ const TeslaStats: React.FC = () => {
         <div style={{}} >
             <Heading
                 content={`Teslascope | Orange Eye Gemini | Last fetch @ ${ get12HrTime(lastFetchTime) }`}
-                fontSize={14}
+                fontSize={12}
                 fontWeight={400}
             />
 

@@ -32,7 +32,17 @@ const parseAndSetTimeUntils = (
             ...item,
             millisecondsUntil: t - n
         };
-    }).sort((a, b) => a.millisecondsUntil - b.millisecondsUntil))
+    }).sort((a, b) => a.millisecondsUntil - b.millisecondsUntil)
+        .filter((item) => {
+            if (!item.repeatsAnnually && item.millisecondsUntil < (MILLISECONDS_PER_DAY * -10)) {
+
+                console.warn(`NOTE!: count down list item '${item.name}' is not repeatable and has occured more than 10 days ago. Ideally clean this up.`)
+
+                return false
+            }
+            return true
+        })
+    )
 }
 
 const CountdownList: React.FC = () => {

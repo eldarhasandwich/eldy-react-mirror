@@ -30,10 +30,6 @@ const appConfig: AppContextType = {
       repeatsAnnually: true
     },
     {
-      name: "Fly out to Kentucky",
-      date: "June 21 2023"
-    },
-    {
       name: "FOB Concert",
       date: "June 28 2023"
     },

@@ -1,15 +1,24 @@
 import React from 'react'
 import { TableCell } from '../Display/Text'
 import { dayArray, ExpectedWeatherUpdateJson, getTranslatedUnitsForCelciusValue, roundToOneDecimal } from './utils'
+import { BLUE, RED } from 'renderer/constants'
 
-const highTempColour = 'coral'
-const lowTempColour = '#6495ED'
+const highTempColour = RED
+const lowTempColour = BLUE
 const spacing = 30
 
 const ForecastTable: React.FC<{
     weatherUpdateJson: ExpectedWeatherUpdateJson
 }> = (props) => {
     const daily = props.weatherUpdateJson.daily.data
+
+    let globalLow = Infinity
+    let globalHigh = -1 * Infinity
+
+    daily.forEach(d => {
+        if (d.temperatureMin < globalLow) globalLow = d.temperatureMin
+        if (d.temperatureMax > globalHigh) globalHigh = d.temperatureMax
+    })
 
     return (
         <table style={{textAlign: 'right', marginLeft: 'auto'}}>
@@ -23,15 +32,9 @@ const ForecastTable: React.FC<{
                     const opacity = (1/5) * (daily.length - index)
 
                     return (
-                        <tr style={{ opacity, fontSize: 18, fontWeight: 400 }}>
+                        <tr style={{ opacity, fontSize: 25, fontWeight: 300 }}>
                             <TableCell content={displayDay} />
-                            <span style={{ marginLeft: spacing }}/>
-                            
-                            <TableCell content={highs.f + '°F'} colour={highTempColour} />
-                            <span style={{ marginLeft: spacing / 10 }}/>
-                            <TableCell content={'/'} colour={highTempColour} />
-                            <span style={{ marginLeft: spacing / 10 }}/>
-                            <TableCell content={highs.c + '°C'} colour={highTempColour} />
+
                             <span style={{ marginLeft: spacing }}/>
 
                             <TableCell content={lows.f + '°F'} colour={lowTempColour} />
@@ -39,6 +42,18 @@ const ForecastTable: React.FC<{
                             <TableCell content={'/'} colour={lowTempColour} />
                             <span style={{ marginLeft: spacing / 10 }}/>
                             <TableCell content={lows.c + '°C'} colour={lowTempColour} />
+
+                            <span style={{ marginLeft: spacing }}/>
+
+
+
+                            {/* <span style={{ marginLeft: spacing }}/> */}
+
+                            <TableCell content={highs.f + '°F'} colour={highTempColour} />
+                            <span style={{ marginLeft: spacing / 10 }}/>
+                            <TableCell content={'/'} colour={highTempColour} />
+                            <span style={{ marginLeft: spacing / 10 }}/>
+                            <TableCell content={highs.c + '°C'} colour={highTempColour} />
                         </tr>
                     )
                 })

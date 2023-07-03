@@ -73,7 +73,7 @@ const PirateWeather: React.FC = () => {
         <>
             <Heading
                 content={locationTitle}
-                fontSize={14}
+                fontSize={12}
                 fontWeight={400}
             />
 
