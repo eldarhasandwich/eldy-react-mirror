@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Heading } from '../Display/Text';
 import { VehicleStatsResponse, fahrenheitToCelcius, fetchVehicleStats } from './utils';
 import AppContext from 'renderer/AppContext';
-import { BLUE, GREEN } from 'renderer/constants';
+import { BLUE, DULL_GREY, GREEN } from 'renderer/constants';
 import { get12HrTime } from '../Clock/utils';
 import { SpanDecimalNumbers } from '../Display/SpanDecimalNumbers';
 // import AppContext from 'renderer/AppContext'
@@ -106,7 +106,7 @@ const TeslaStats: React.FC = () => {
     return (
         <div style={{}} >
             <Heading
-                content={`Teslascope | Orange Eye Gemini | Last fetch @ ${ get12HrTime(lastFetchTime) }`}
+                content={`Teslascope | 🍊 Gemini 🍊 | Last fetch @ ${ get12HrTime(lastFetchTime) }`}
                 fontSize={12}
                 fontWeight={400}
             />
@@ -130,7 +130,7 @@ const TeslaStats: React.FC = () => {
                 <div style={{
                     width: '600px',
                     height: '6px',
-                    backgroundColor: '#555',
+                    backgroundColor: DULL_GREY,
                     marginTop: '5px',
                 }}>
                     <div
@@ -143,6 +143,7 @@ const TeslaStats: React.FC = () => {
                     />
                 </div>
             </div>
+            { /* end charge bar */ }
 
             {
                 isCharging && (

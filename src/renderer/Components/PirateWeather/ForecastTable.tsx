@@ -1,7 +1,7 @@
 import React from 'react'
 import { TableCell } from '../Display/Text'
 import { dayArray, ExpectedWeatherUpdateJson, getTranslatedUnitsForCelciusValue, roundToOneDecimal } from './utils'
-import { BLUE, RED } from 'renderer/constants'
+import { BLUE, DULL_GREY, RED } from 'renderer/constants'
 
 const highTempColour = RED
 const lowTempColour = BLUE
@@ -31,6 +31,9 @@ const ForecastTable: React.FC<{
                     const displayDay = index === 0 ? "Today" : dayArray[new Date(day.time * 1000).getDay()];
                     const opacity = (1/5) * (daily.length - index)
 
+                    const globalMinimumToDailyMinimumInterval = (day.temperatureMin - globalLow) / (globalHigh - globalLow) 
+                    const dailyMinimumToDailyMaximumInterval = ( (day.temperatureMax - globalLow) / (globalHigh - globalLow) ) - globalMinimumToDailyMinimumInterval
+
                     return (
                         <tr style={{ opacity, fontSize: 25, fontWeight: 300 }}>
                             <TableCell content={displayDay} />
@@ -43,9 +46,31 @@ const ForecastTable: React.FC<{
                             <span style={{ marginLeft: spacing / 10 }}/>
                             <TableCell content={lows.c + '°C'} colour={lowTempColour} />
 
-                            <span style={{ marginLeft: spacing }}/>
+                            {/* <span style={{ marginLeft: spacing }}/> */}
 
+                            <span>
 
+                                <div
+                                    style={{
+                                        width: '200px',
+                                        height: '6px',
+                                        backgroundColor: DULL_GREY,
+                                        marginBottom:'4.5px'
+                                    }}
+                                >
+
+                                    <div
+                                        style={{
+                                            marginLeft: `${globalMinimumToDailyMinimumInterval * 100}%`,
+                                            width: `${dailyMinimumToDailyMaximumInterval * 100}%`,
+                                            height: '100%',
+                                            backgroundImage: `linear-gradient(to right , ${BLUE}, ${RED})`
+                                        }}
+                                    />
+
+                                </div>
+
+                            </span>
 
                             {/* <span style={{ marginLeft: spacing }}/> */}
 
