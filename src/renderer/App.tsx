@@ -29,16 +29,13 @@ const appConfig: AppContextType = {
       date: "June 8",
       repeatsAnnually: true
     },
-    {
-      name: "FOB Concert",
-      date: "June 28 2023"
-    },
     { name: "Starfield Launch", date: "September 6 2023" },
     { name: "Cities: Skylines II Launch", date: "October 24 2023" },
     { name: "Payday 3 Launch", date: "September 21 2023" },
-    { name: "Paramore Concert", date: "July 9 2023" },
+    { name: "San Japan", date: "September 1 2023" },
     { name: "Annular Solar Eclipse", date: "October 14 2023" },
     { name: "Total Solar Eclipse", date: "April 8 2024" },
+
     {
       name: "Marriage",
       date: "October 31 2023"
@@ -94,7 +91,8 @@ export default function App() {
             float: 'right',
             textAlign: 'right'
         }}>
-          <TeslaStats/>
+
+          <PirateWeather/>
 
           <div style={{ 
             height: '1px',
@@ -103,7 +101,8 @@ export default function App() {
             margin: '30px 0',
           }}/>
 
-          <PirateWeather/>
+          <TeslaStats/>
+
         </div>
 
       </div>
