@@ -92,12 +92,15 @@ const CountdownList: React.FC = () => {
                     const opacity = (1/5) * (timeUntils.length - index)
 
                     return (
-                        <div style={{
-                            opacity,
-                            color,
-                            fontSize: 24,
-                            fontWeight: 300
-                        }}>
+                        <div
+                            key={name}
+                            style={{
+                                opacity,
+                                color,
+                                fontSize: 24,
+                                fontWeight: 300
+                            }}
+                        >
                             <span>{name + ' -> '}</span>
                             <span>{timeString}</span>
 

@@ -35,50 +35,55 @@ const ForecastTable: React.FC<{
                     const dailyMinimumToDailyMaximumInterval = ( (day.temperatureMax - globalLow) / (globalHigh - globalLow) ) - globalMinimumToDailyMinimumInterval
 
                     return (
-                        <tr style={{ opacity, fontSize: 25, fontWeight: 300 }}>
-                            <TableCell content={displayDay} />
+                        <tr
+                            key={index}
+                            style={{ opacity, fontSize: 25, fontWeight: 300 }}
+                        >
+                            <>
+                                <TableCell content={displayDay} />
 
-                            <span style={{ marginLeft: spacing }}/>
+                                <span style={{ marginLeft: spacing }}/>
 
-                            <TableCell content={lows.f + '°F'} colour={lowTempColour} />
-                            <span style={{ marginLeft: spacing / 10}}/>
-                            <TableCell content={'/'} colour={lowTempColour} />
-                            <span style={{ marginLeft: spacing / 10 }}/>
-                            <TableCell content={lows.c + '°C'} colour={lowTempColour} />
+                                <TableCell content={lows.f + '°F'} colour={lowTempColour} />
+                                <span style={{ marginLeft: spacing / 10}}/>
+                                <TableCell content={'/'} colour={lowTempColour} />
+                                <span style={{ marginLeft: spacing / 10 }}/>
+                                <TableCell content={lows.c + '°C'} colour={lowTempColour} />
 
-                            {/* <span style={{ marginLeft: spacing }}/> */}
+                                {/* <span style={{ marginLeft: spacing }}/> */}
 
-                            <span>
-
-                                <div
-                                    style={{
-                                        width: '200px',
-                                        height: '6px',
-                                        backgroundColor: DULL_GREY,
-                                        marginBottom:'4.5px'
-                                    }}
-                                >
+                                <span>
 
                                     <div
                                         style={{
-                                            marginLeft: `${globalMinimumToDailyMinimumInterval * 100}%`,
-                                            width: `${dailyMinimumToDailyMaximumInterval * 100}%`,
-                                            height: '100%',
-                                            backgroundImage: `linear-gradient(to right , ${BLUE}, ${RED})`
+                                            width: '200px',
+                                            height: '6px',
+                                            backgroundColor: DULL_GREY,
+                                            marginBottom:'4.5px'
                                         }}
-                                    />
+                                    >
 
-                                </div>
+                                        <div
+                                            style={{
+                                                marginLeft: `${globalMinimumToDailyMinimumInterval * 100}%`,
+                                                width: `${dailyMinimumToDailyMaximumInterval * 100}%`,
+                                                height: '100%',
+                                                backgroundImage: `linear-gradient(to right , ${BLUE}, ${RED})`
+                                            }}
+                                        />
 
-                            </span>
+                                    </div>
 
-                            {/* <span style={{ marginLeft: spacing }}/> */}
+                                </span>
 
-                            <TableCell content={highs.f + '°F'} colour={highTempColour} />
-                            <span style={{ marginLeft: spacing / 10 }}/>
-                            <TableCell content={'/'} colour={highTempColour} />
-                            <span style={{ marginLeft: spacing / 10 }}/>
-                            <TableCell content={highs.c + '°C'} colour={highTempColour} />
+                                {/* <span style={{ marginLeft: spacing }}/> */}
+
+                                <TableCell content={highs.f + '°F'} colour={highTempColour} />
+                                <span style={{ marginLeft: spacing / 10 }}/>
+                                <TableCell content={'/'} colour={highTempColour} />
+                                <span style={{ marginLeft: spacing / 10 }}/>
+                                <TableCell content={highs.c + '°C'} colour={highTempColour} />
+                            </>
                         </tr>
                     )
                 })

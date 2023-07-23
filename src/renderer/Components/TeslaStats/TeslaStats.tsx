@@ -106,7 +106,7 @@ const TeslaStats: React.FC = () => {
     return (
         <div style={{}} >
             <Heading
-                content={`Teslascope | 🍊 Gemini 🍊 | Last fetch @ ${ get12HrTime(lastFetchTime) }`}
+                content={`Teslascope | x Gemini x | Last fetch @ ${ get12HrTime(lastFetchTime) }`}
                 fontSize={12}
                 fontWeight={400}
             />

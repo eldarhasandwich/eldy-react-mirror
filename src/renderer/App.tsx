@@ -29,6 +29,7 @@ const appConfig: AppContextType = {
       date: "June 8",
       repeatsAnnually: true
     },
+    { name: 'Armored Core VI Launch', date: 'August 25 2023' },
     { name: "Starfield Launch", date: "September 6 2023" },
     { name: "Cities: Skylines II Launch", date: "October 24 2023" },
     { name: "Payday 3 Launch", date: "September 21 2023" },
@@ -66,6 +67,18 @@ const appConfig: AppContextType = {
   }
 }
 
+const LineBreak = () => {
+
+  return (
+    <div style={{ 
+      height: '1px',
+      width: '100%',
+      backgroundImage: 'linear-gradient(to right, transparent, #666)',
+      margin: '30px 0',
+    }}/>
+  )
+}
+
 export default function App() {
   return (
     <AppContext.Provider value={appConfig}>
@@ -93,13 +106,6 @@ export default function App() {
         }}>
 
           <PirateWeather/>
-
-          <div style={{ 
-            height: '1px',
-            width: '100%',
-            backgroundImage: 'linear-gradient(to right, transparent, #666)',
-            margin: '30px 0',
-          }}/>
 
           <TeslaStats/>
 
