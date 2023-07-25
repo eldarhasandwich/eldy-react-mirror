@@ -39,7 +39,7 @@ const appConfig: AppContextType = {
 
     {
       name: "Marriage",
-      date: "October 31 2023"
+      date: "October 13 2023"
     },
     {
       name: "Halloween",
