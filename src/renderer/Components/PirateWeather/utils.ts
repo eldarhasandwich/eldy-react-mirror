@@ -114,8 +114,8 @@ export const getActualAndFeelsLikeFromDatapoint = (weather: WeatherDatapoint) =>
 	const currentFeelsLikeTempurature = weather.apparentTemperature;
 
 	return {
-		actual: getTranslatedUnitsForFarenheitValues(currentActualTempurature, roundToTwoDecimals),
-		feelsLike: getTranslatedUnitsForFarenheitValues(currentFeelsLikeTempurature, roundToTwoDecimals)
+		actual: getTranslatedUnitsForCelciusValue(currentActualTempurature, roundToTwoDecimals),
+		feelsLike: getTranslatedUnitsForCelciusValue(currentFeelsLikeTempurature, roundToTwoDecimals)
 	};
 }
 

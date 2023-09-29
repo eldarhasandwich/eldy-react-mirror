@@ -39,8 +39,8 @@ const Clock: React.FC = () => {
     return (
         <>
             <Heading
-                fontSize={60}
-                fontWeight={100}
+                fontSize={40}
+                fontWeight={300}
                 // disableMargins
                 content={currentTime.toDateString()}
             />

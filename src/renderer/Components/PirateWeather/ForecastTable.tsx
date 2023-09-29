@@ -1,6 +1,6 @@
 import React from 'react'
 import { TableCell } from '../Display/Text'
-import { dayArray, ExpectedWeatherUpdateJson, getTranslatedUnitsForFarenheitValues, roundToOneDecimal } from './utils'
+import { dayArray, ExpectedWeatherUpdateJson, getTranslatedUnitsForCelciusValue, roundToOneDecimal } from './utils'
 import { BLUE, DULL_GREY, RED } from 'renderer/constants'
 
 const highTempColour = RED
@@ -25,8 +25,8 @@ const ForecastTable: React.FC<{
             {
                 daily.map((day, index) => {
 
-                    const highs = getTranslatedUnitsForFarenheitValues(day.temperatureMax, roundToOneDecimal);
-                    const lows = getTranslatedUnitsForFarenheitValues(day.temperatureMin, roundToOneDecimal);      
+                    const highs = getTranslatedUnitsForCelciusValue(day.temperatureMax, roundToOneDecimal);
+                    const lows = getTranslatedUnitsForCelciusValue(day.temperatureMin, roundToOneDecimal);      
                     
                     const displayDay = index === 0 ? "Today" : dayArray[new Date(day.time * 1000).getDay()];
                     const opacity = (1/5) * (daily.length - index)
