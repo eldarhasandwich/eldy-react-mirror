@@ -41,6 +41,7 @@ const Clock: React.FC = () => {
             <Heading
                 fontSize={60}
                 fontWeight={100}
+                // disableMargins
                 content={currentTime.toDateString()}
             />
             <Heading
@@ -52,6 +53,7 @@ const Clock: React.FC = () => {
             <Heading 
                 fontSize={80}
                 fontWeight={100}
+                disableMargins
                 content={get24HrTime(currentTime)}
             />
             <DailyCountdown 
