@@ -1,3 +1,4 @@
+// import { fahrenheitToCelcius } from "../TeslaStats/utils"
 
 export interface WeatherDatapoint {
     temperature: number
@@ -48,12 +49,23 @@ const celciusToFahrenheit = (c: number) => {
 	return c * (9 / 5) + 32;
 };
 
+const fahrenheitToCelcius = (f: number) => {
+	return (f - 32) * (5/9)
+};
+
 export const getTranslatedUnitsForCelciusValue = (c: number, roundingFn: (n: number) => number) => {
 	return {
 		c: roundingFn(c),
 		f: roundingFn(celciusToFahrenheit(c))
 	};
 };
+
+export const getTranslatedUnitsForFarenheitValues = (f: number, roundingFn: (n: number) => number) => {
+	return {
+		f: roundingFn(f),
+		c: roundingFn(fahrenheitToCelcius(f))
+	}
+}
 
 const recursivelyReadStream = async (stream: ReadableStreamDefaultReader<Uint8Array>): Promise<Uint8Array | undefined> => {
 	const output = await stream.read();
@@ -102,8 +114,8 @@ export const getActualAndFeelsLikeFromDatapoint = (weather: WeatherDatapoint) =>
 	const currentFeelsLikeTempurature = weather.apparentTemperature;
 
 	return {
-		actual: getTranslatedUnitsForCelciusValue(currentActualTempurature, roundToTwoDecimals),
-		feelsLike: getTranslatedUnitsForCelciusValue(currentFeelsLikeTempurature, roundToTwoDecimals)
+		actual: getTranslatedUnitsForFarenheitValues(currentActualTempurature, roundToTwoDecimals),
+		feelsLike: getTranslatedUnitsForFarenheitValues(currentFeelsLikeTempurature, roundToTwoDecimals)
 	};
 }
 

@@ -39,17 +39,18 @@ const Clock: React.FC = () => {
     return (
         <>
             <Heading
-                fontWeight={200}
+                fontSize={60}
+                fontWeight={100}
                 content={currentTime.toDateString()}
             />
             <Heading
-                fontSize={128}
+                fontSize={160}
                 fontWeight={100}
                 disableMargins
                 content={get12HrTime(currentTime)}
             />
             <Heading 
-                fontSize={56}
+                fontSize={80}
                 fontWeight={100}
                 content={get24HrTime(currentTime)}
             />
