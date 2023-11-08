@@ -9,6 +9,7 @@ export interface WeatherDatapoint {
     time: number
     humidity: number
     cloudCover: number
+	precipProbability: number
 }
 
 export const NullWeatherDatapoint: WeatherDatapoint = {
@@ -19,7 +20,8 @@ export const NullWeatherDatapoint: WeatherDatapoint = {
 	temperatureMin: 0,
 	time: 0,
 	humidity: 0, 
-	cloudCover: 0
+	cloudCover: 0,
+	precipProbability: 0
 }
 
 export interface ExpectedWeatherUpdateJson {
@@ -36,6 +38,8 @@ export interface ExpectedWeatherUpdateJson {
     },
     currently: WeatherDatapoint
 }
+
+export const roundToZeroDecimals = (n: number) => Math.round(n);
 
 export const roundToOneDecimal = (n: number) => Math.round(n * 10) / 10;
 

@@ -20,6 +20,11 @@ const appConfig: AppContextType = {
   },
   countdownList: [
     {
+      name: "Valentines Day",
+      date: "Febuary 14",
+      repeatsAnnually: true
+    },
+    {
       name: "Linlin Birthday",
       date: "May 28",
       repeatsAnnually: true
@@ -28,19 +33,6 @@ const appConfig: AppContextType = {
       name: "Eldy Birthday",
       date: "June 8",
       repeatsAnnually: true
-    },
-    { name: 'Armored Core VI Launch', date: 'August 25 2023' },
-    { name: "Starfield Launch", date: "September 6 2023" },
-    { name: "Cities: Skylines II Launch", date: "October 24 2023" },
-    { name: "Payday 3 Launch", date: "September 21 2023" },
-    { name: "Spiderman 2 Launch", date: "October 20 2023" },
-    { name: "San Japan", date: "September 1 2023" },
-    { name: "Annular Solar Eclipse", date: "October 14 2023" },
-    { name: "Total Solar Eclipse", date: "April 8 2024" },
-
-    {
-      name: "Marriage",
-      date: "October 13 2023"
     },
     {
       name: "Halloween",
@@ -57,28 +49,26 @@ const appConfig: AppContextType = {
       date: "January 1",
       repeatsAnnually: true
     },
-    {
-      name: "Valentines Day",
-      date: "Febuary 14",
-      repeatsAnnually: true
-    }
+    { name: "Total Solar Eclipse", date: "April 8 2024" },
+    { name: "Fall Out Boy Concert", date: "March 8 2024" },
+    { name: "Poe Ballet", date: "March 22 2024" }
   ],
   teslascope: {
     vehiclePublicId: 'GsNy'
   }
 }
 
-const LineBreak = () => {
+// const LineBreak = () => {
 
-  return (
-    <div style={{ 
-      height: '1px',
-      width: '100%',
-      backgroundImage: 'linear-gradient(to right, transparent, #666)',
-      margin: '30px 0',
-    }}/>
-  )
-}
+//   return (
+//     <div style={{ 
+//       height: '1px',
+//       width: '100%',
+//       backgroundImage: 'linear-gradient(to right, transparent, #666)',
+//       margin: '30px 0',
+//     }}/>
+//   )
+// }
 
 export default function App() {
   return (
