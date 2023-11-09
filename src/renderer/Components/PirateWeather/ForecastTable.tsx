@@ -48,7 +48,7 @@ const ForecastTable: React.FC<{
 
                                     <span style={{ marginLeft: spacing }}/>
 
-                                    <TableCell content={`${day.precipProbability * 100}%`} colour={ day.precipProbability >= 0.2 ? 'white' : DULL_GREY }/>
+                                    <TableCell content={`${roundToZeroDecimals(day.precipProbability * 100)}%`} colour={ day.precipProbability >= 0.2 ? 'white' : DULL_GREY }/>
 
                                     {
                                         day.precipProbability >= 0.2 && (<span className="material-symbols-outlined">rainy</span>)
