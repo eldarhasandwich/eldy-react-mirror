@@ -1,6 +1,6 @@
 import React from 'react'
 import { TableCell } from '../Display/Text'
-import { dayArray, ExpectedWeatherUpdateJson, getTranslatedUnitsForCelciusValue, roundToOneDecimal, roundToZeroDecimals } from './utils'
+import { dayArray, ExpectedWeatherUpdateJson, getTranslatedUnitsForCelciusValue, roundToZeroDecimals } from './utils'
 import { BLUE, DULL_GREY, RED } from 'renderer/constants'
 
 const highTempColour = RED
@@ -23,6 +23,8 @@ const ForecastTable: React.FC<{
     return (
         <>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
             <table style={{textAlign: 'right', marginLeft: 'auto'}}>
                 {
                     daily.map((day, index) => {
@@ -46,7 +48,7 @@ const ForecastTable: React.FC<{
                                 <>
                                     <TableCell content={displayDay} />
 
-                                    <span style={{ marginLeft: spacing }}/>
+                                    <span style={{ marginLeft: spacing / 2 }}/>
 
                                     <TableCell content={`${roundToZeroDecimals(day.precipProbability * 100)}%`} colour={ day.precipProbability >= 0.2 ? 'white' : DULL_GREY }/>
 
@@ -54,9 +56,11 @@ const ForecastTable: React.FC<{
                                         day.precipProbability >= 0.2 && (<span className="material-symbols-outlined">rainy</span>)
                                     }
 
-                                    {/* <span className="material-symbols-outlined">rainy</span> */}
+                                    {
+                                        day.precipProbability < 0.2 && (<span className="material-symbols-outlined" style={{color: DULL_GREY}}>cloud_off</span>)
+                                    }
 
-                                    <span style={{ marginLeft: spacing }}/>
+                                    <span style={{ marginLeft: spacing / 2 }}/>
 
                                     <TableCell content={lows.f + '°F'} colour={lowTempColour} />
                                     <span style={{ marginLeft: spacing / 10}}/>

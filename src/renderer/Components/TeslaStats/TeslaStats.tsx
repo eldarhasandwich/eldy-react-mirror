@@ -141,6 +141,14 @@ const TeslaStats: React.FC = () => {
                             float: 'right'
                         }}
                     />
+                    <div
+                        style={{
+                            height: '100%',
+                            width: `${vehicleStats.battery.charge_limit_soc - vehicleStats.battery.level}%`,
+                            backgroundColor: 'black',
+                            float: 'right'
+                        }}
+                    />
                 </div>
             </div>
             { /* end charge bar */ }
