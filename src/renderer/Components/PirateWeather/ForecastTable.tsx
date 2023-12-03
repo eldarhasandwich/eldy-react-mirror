@@ -7,6 +7,8 @@ const highTempColour = RED
 const lowTempColour = BLUE
 const spacing = 30
 
+const precipThreshold = 0.2
+
 const ForecastTable: React.FC<{
     weatherUpdateJson: ExpectedWeatherUpdateJson
 }> = (props) => {
@@ -19,6 +21,8 @@ const ForecastTable: React.FC<{
         if (d.temperatureMin < globalLow) globalLow = d.temperatureMin
         if (d.temperatureMax > globalHigh) globalHigh = d.temperatureMax
     })
+
+    const isPrecipitationHappeningThisWeek = daily.some(day => day.precipProbability >= precipThreshold)
 
     return (
         <>
@@ -50,14 +54,25 @@ const ForecastTable: React.FC<{
 
                                     <span style={{ marginLeft: spacing / 2 }}/>
 
-                                    <TableCell content={`${roundToZeroDecimals(day.precipProbability * 100)}%`} colour={ day.precipProbability >= 0.2 ? 'white' : DULL_GREY }/>
-
                                     {
-                                        day.precipProbability >= 0.2 && (<span className="material-symbols-outlined">rainy</span>)
+                                        isPrecipitationHappeningThisWeek && (
+                                            <TableCell 
+                                                content={`${roundToZeroDecimals(day.precipProbability * 100)}%`} 
+                                                colour={ day.precipProbability >= precipThreshold ? 'white' : DULL_GREY }
+                                            />
+                                        )
                                     }
 
                                     {
-                                        day.precipProbability < 0.2 && (<span className="material-symbols-outlined" style={{color: DULL_GREY}}>cloud_off</span>)
+                                        isPrecipitationHappeningThisWeek 
+                                            && day.precipProbability >= precipThreshold 
+                                            && (<span className="material-symbols-outlined">rainy</span>)
+                                    }
+
+                                    {
+                                        isPrecipitationHappeningThisWeek 
+                                            && day.precipProbability < precipThreshold 
+                                            && (<span className="material-symbols-outlined" style={{color: DULL_GREY}}>cloud_off</span>)
                                     }
 
                                     <span style={{ marginLeft: spacing / 2 }}/>
