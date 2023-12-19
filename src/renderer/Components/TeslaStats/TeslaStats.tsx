@@ -1,7 +1,7 @@
 
 import React, { useContext, useEffect, useState } from 'react'
 import { Heading } from '../Display/Text';
-import { VehicleStatsResponse, fahrenheitToCelcius, fetchVehicleStats } from './utils';
+import { VehicleStatsResponse, fahrenheitToCelcius, fetchVehicleStats, minutesToHoursAndMinutes } from './utils';
 import AppContext from 'renderer/AppContext';
 import { BLUE, DULL_GREY, GREEN } from 'renderer/constants';
 import { get12HrTime } from '../Clock/utils';
@@ -103,6 +103,11 @@ const TeslaStats: React.FC = () => {
 
     const temperatureString = `Interior: ${vehicleStats.climate.inside}°F / ${fahrenheitToCelcius(vehicleStats.climate.inside)}°C`
 
+    const chargeTimeRemaining = minutesToHoursAndMinutes(vehicleStats.battery.minutes_remaining);
+    const chargeTimeRemaingingString = (chargeTimeRemaining.hours !== 0 ? chargeTimeRemaining.hours.toString() + ` ${chargeTimeRemaining.hours === 1 ? 'hour' : 'hours'} ` : "")
+        + (chargeTimeRemaining.minutes !== 0 ? chargeTimeRemaining.minutes.toString() + " minutes " : "")
+        + "remaining"
+
     return (
         <div style={{}} >
             <Heading
@@ -156,7 +161,7 @@ const TeslaStats: React.FC = () => {
             {
                 isCharging && (
                     <Heading
-                        content={`${vehicleStats.battery.minutes_remaining} minutes remaining`}
+                        content={chargeTimeRemaingingString}
                         fontSize={26}
                         fontWeight={300}
                     />

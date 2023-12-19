@@ -28,6 +28,13 @@ export const fahrenheitToCelcius = (f: number) => {
     );
 };
 
+export const minutesToHoursAndMinutes = (m: number): { hours: number, minutes: number } => {
+    return {
+        hours: Math.floor(m / 60),
+        minutes: m % 60
+    }
+}
+
 const recursivelyReadStream = async (stream: ReadableStreamDefaultReader<Uint8Array>): Promise<Uint8Array | undefined> => {
 	const output = await stream.read();
 	if (output.done) {
