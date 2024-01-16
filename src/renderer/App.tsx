@@ -25,13 +25,23 @@ const appConfig: AppContextType = {
       repeatsAnnually: true
     },
     {
-      name: "Linlin Birthday",
+      name: "Dating Anniversary",
+      date: "Febuary 21",
+      repeatsAnnually: true
+    }
+    {
+      name: "Linds Birthday",
       date: "May 28",
       repeatsAnnually: true
     },
     {
       name: "Eldy Birthday",
       date: "June 8",
+      repeatsAnnually: true
+    },
+    {
+      name: 'Wedding Anniversary',
+      date: "October 13",
       repeatsAnnually: true
     },
     {
