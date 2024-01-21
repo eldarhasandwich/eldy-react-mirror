@@ -14,10 +14,13 @@ import {
 
 import { get12HrTime } from '../Clock/utils'
 import { SpanDecimalNumbers } from '../Display/SpanDecimalNumbers';
+import { Alignment } from 'renderer/App';
 
 const ONE_HOUR_MS = 60 * 60 * 1000
 
-const PirateWeather: React.FC = () => {
+const PirateWeather: React.FC<{
+    alignment?: Alignment
+}> = (props) => {
 
     const [ weatherUpdateJson, setWeatherUpdateJson ] = useState<ExpectedWeatherUpdateJson | undefined>(undefined)
     const [ interpolatedWeatherDatapoint, setInterpolatedWeatherDatapoint ] = useState<WeatherDatapoint | undefined>(undefined)
@@ -111,7 +114,10 @@ const PirateWeather: React.FC = () => {
                 fontWeight={200}
             />
 
-            <ForecastTable weatherUpdateJson={weatherUpdateJson}/>
+            <ForecastTable 
+                weatherUpdateJson={weatherUpdateJson}
+                alignment={props.alignment}
+            />
         </>
     )
 

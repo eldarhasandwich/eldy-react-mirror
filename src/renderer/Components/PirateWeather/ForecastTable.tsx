@@ -2,6 +2,7 @@ import React from 'react'
 import { TableCell } from '../Display/Text'
 import { dayArray, ExpectedWeatherUpdateJson, getTranslatedUnitsForCelciusValue, roundToZeroDecimals } from './utils'
 import { BLUE, DULL_GREY, RED } from 'renderer/constants'
+import { Alignment } from 'renderer/App'
 
 const highTempColour = RED
 const lowTempColour = BLUE
@@ -11,7 +12,10 @@ const precipThreshold = 0.2
 
 const ForecastTable: React.FC<{
     weatherUpdateJson: ExpectedWeatherUpdateJson
+    alignment?: Alignment
 }> = (props) => {
+
+    const alignment = props.alignment || 'right'
     const daily = props.weatherUpdateJson.daily.data
 
     let globalLow = Infinity
@@ -29,7 +33,11 @@ const ForecastTable: React.FC<{
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-            <table style={{textAlign: 'right', marginLeft: 'auto'}}>
+            <table style={{
+                textAlign: alignment,
+                marginLeft: alignment === 'right' ? 'auto' : undefined,
+                marginRight: alignment === 'left' ? 'auto' : undefined
+            }}>
                 {
                     daily.map((day, index) => {
 

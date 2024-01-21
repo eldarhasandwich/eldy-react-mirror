@@ -6,6 +6,8 @@ import PirateWeather from './Components/PirateWeather/PirateWeather';
 import CountdownList from './Components/CountdownList/CountdownList';
 import TeslaStats from './Components/TeslaStats/TeslaStats';
 
+export type Alignment = 'left' | 'right'
+
 const secrets = require('../../secrets.json')
 
 const appConfig: AppContextType = {
@@ -96,7 +98,7 @@ export default function App() {
             height: '100%',
             float: 'left'
         }}>
-          <Clock/>
+          <PirateWeather alignment={'left'} />
         </div>
 
         <div style={{
@@ -106,7 +108,13 @@ export default function App() {
             textAlign: 'right'
         }}>
 
-          <PirateWeather/>
+          <Clock/>
+
+          <div
+            style={{
+              height:'50px'
+            }}
+          />
 
           <TeslaStats/>
 
