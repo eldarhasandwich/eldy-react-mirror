@@ -116,7 +116,7 @@ export default function App() {
             }}
           />
 
-          <TeslaStats/>
+          {/* <TeslaStats/> */}
 
         </div>
 
