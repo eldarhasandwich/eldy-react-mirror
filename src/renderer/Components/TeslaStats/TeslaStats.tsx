@@ -31,7 +31,7 @@ const TeslaStats: React.FC = () => {
     const [ chargeAnimation, setChargeAnimation ] = useState<string>('')
 
     if (!teslascope) {
-        return (<></>)
+        return null
     }
 
     useEffect(() => {

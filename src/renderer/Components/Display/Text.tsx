@@ -4,6 +4,7 @@ export const Heading: React.FC<{
     content: string
     fontSize?: number
     fontWeight?: number
+    colour?: string
     opacity?: number
     disableMargins?: boolean
 }> = (props) => {
@@ -11,7 +12,8 @@ export const Heading: React.FC<{
     const { 
         fontSize,
         fontWeight,
-        opacity
+        opacity,
+        colour
     } = props
 
     return (
@@ -19,6 +21,7 @@ export const Heading: React.FC<{
             fontSize,
             fontWeight,
             opacity,
+            color: colour,
             margin: props.disableMargins ? 0 : undefined,
         }}>
             {props.content}

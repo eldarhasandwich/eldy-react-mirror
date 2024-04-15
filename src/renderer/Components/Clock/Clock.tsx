@@ -21,15 +21,8 @@ const DailyCountdown: React.FC<{
 }
 
 const Clock: React.FC = () => {
-
-    const [ currentTime, setCurrentTime ] = useState<Date>(new Date(Date.now()))
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentTime(new Date(Date.now()))
-        }, 1000);
-        return () => clearInterval(interval);
-    }, []);
+    
+    const { currentTime } = useContext(AppContext);
 
     const { location } = useContext(AppContext)
     const { long, lat } = location.coords

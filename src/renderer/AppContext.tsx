@@ -23,7 +23,8 @@ export interface AppContextType {
     countdownList: CountdownListItem[],
     teslascope?: {
         vehiclePublicId: string
-    }
+    },
+    currentTime: Date
 }
 
 const contextDefault: AppContextType = {
@@ -34,7 +35,8 @@ const contextDefault: AppContextType = {
             lat: 0
         }
     },
-    countdownList: []
+    countdownList: [],
+    currentTime: new Date(Date.now())
 }
 
 const AppContext = React.createContext<AppContextType>(contextDefault);

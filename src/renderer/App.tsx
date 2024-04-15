@@ -1,16 +1,29 @@
-import AppContext, { AppContextType } from './AppContext';
+import AppContext, { AppContextType, CountdownListItem } from './AppContext';
 import './App.css';
+
+import countdowntimerCsv from '../../config/countdowntimers.csv'
 
 import Clock from './Components/Clock/Clock';
 import PirateWeather from './Components/PirateWeather/PirateWeather';
 import CountdownList from './Components/CountdownList/CountdownList';
-import TeslaStats from './Components/TeslaStats/TeslaStats';
+import { useEffect, useState } from 'react';
+import TimelyReminder from './Components/TimelyReminder/TimelyReminder';
 
 export type Alignment = 'left' | 'right'
 
 const secrets = require('../../secrets.json')
 
-const appConfig: AppContextType = {
+const countdownList = countdowntimerCsv.map((row: any) => {
+    return {
+        name: row.EVENT_NAME,
+        date: row.EVENT_DATE,
+        repeatsAnnually: row.EVENT_REPEATSANNUALLY === 'repeatsAnnually'
+    }
+})
+
+// const countdownList: CountdownListItem[] = []
+
+const baseAppConfig: AppContextType = {
   secrets: {
     ...secrets
   },
@@ -20,71 +33,27 @@ const appConfig: AppContextType = {
       lat: 30.493780
     }
   },
-  countdownList: [
-    {
-      name: "Valentines Day",
-      date: "Febuary 14",
-      repeatsAnnually: true
-    },
-    {
-      name: "Dating Anniversary",
-      date: "Febuary 21",
-      repeatsAnnually: true
-    },
-    {
-      name: "Linds Birthday",
-      date: "May 28",
-      repeatsAnnually: true
-    },
-    {
-      name: "Eldy Birthday",
-      date: "June 8",
-      repeatsAnnually: true
-    },
-    {
-      name: 'Wedding Anniversary',
-      date: "October 13",
-      repeatsAnnually: true
-    },
-    {
-      name: "Halloween",
-      date: "October 31",
-      repeatsAnnually: true
-    },
-    {
-      name: "Christmas",
-      date: "December 25",
-      repeatsAnnually: true
-    },
-    {
-      name: "New Years",
-      date: "January 1",
-      repeatsAnnually: true
-    },
-    { name: "Total Solar Eclipse", date: "April 8 2024" },
-    { name: "Fall Out Boy Concert", date: "March 8 2024" },
-    { name: "Poe Ballet", date: "March 22 2024" }
-  ],
-  teslascope: {
-    vehiclePublicId: 'GsNy'
-  }
+  countdownList,
+  currentTime: new Date(Date.now())
 }
 
-// const LineBreak = () => {
-
-//   return (
-//     <div style={{ 
-//       height: '1px',
-//       width: '100%',
-//       backgroundImage: 'linear-gradient(to right, transparent, #666)',
-//       margin: '30px 0',
-//     }}/>
-//   )
-// }
-
 export default function App() {
+
+    const [ currentTime, setCurrentTime ] = useState<Date>(new Date(Date.now()));
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentTime(new Date(Date.now()))
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+
   return (
-    <AppContext.Provider value={appConfig}>
+    <AppContext.Provider value={{
+        ...baseAppConfig,
+        currentTime
+    }}>
 
       <div style={{
         height: '45vh',
@@ -109,6 +78,7 @@ export default function App() {
         }}>
 
           <Clock/>
+          <TimelyReminder/>
 
           <div
             style={{
