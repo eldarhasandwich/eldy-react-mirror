@@ -18,7 +18,6 @@ const TimelyReminder: React.FC = () => {
         )
     }
 
-
     return null
 }
 

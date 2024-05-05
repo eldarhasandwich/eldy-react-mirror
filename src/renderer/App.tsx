@@ -57,8 +57,8 @@ export default function App() {
 
       <div style={{
         height: '45vh',
-        paddingLeft: '2.5%',
-        paddingRight: '2.5%',
+        paddingLeft: '1%',
+        paddingRight: '1%',
         paddingBottom: '2.5%'
       }}>
       
@@ -94,7 +94,7 @@ export default function App() {
 
       <div style={{
         height: '45vh',
-        padding: '2.5%'
+        padding: '1%'
       }}>
 
         <CountdownList/>
