@@ -78,6 +78,7 @@ export default function App() {
         }}>
 
           <Clock/>
+          
           <TimelyReminder/>
 
           <div

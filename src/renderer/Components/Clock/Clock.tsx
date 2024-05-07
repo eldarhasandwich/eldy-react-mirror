@@ -20,6 +20,48 @@ const DailyCountdown: React.FC<{
     />
 }
 
+const TimezoneClock: React.FC<{
+    locationName: string,
+    timezone: string
+}> = (props) => {
+
+    const { currentTime } = useContext(AppContext);
+
+    const timeString = currentTime.toLocaleTimeString('en-US', {
+        timeZone: props.timezone,
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+    }).replace('AM', 'am').replace('PM', 'pm')
+
+    const dateInTimezone = new Date(currentTime.toLocaleString('en-US', { timeZone: props.timezone }))
+    const hour = dateInTimezone.getHours();
+    const isNight = hour >= 22 || hour < 6;
+    
+    return (
+        <div
+            style={{
+                marginTop: '50px',
+                marginLeft: '50px'
+            }}
+        >
+            <Heading
+                fontSize={20}
+                fontWeight={200}
+                content={props.locationName}
+                disableMargins
+            />
+            <Heading
+                fontSize={50}
+                fontWeight={100}
+                content={timeString}
+                disableMargins
+                opacity={isNight ? 0.5 : 1}
+            />
+        </div>
+    )
+}
+
 const Clock: React.FC = () => {
     
     const { currentTime } = useContext(AppContext);
@@ -59,6 +101,22 @@ const Clock: React.FC = () => {
                 time={sunset} 
                 currentTime={currentTime}
             />
+
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'flex-end'
+                }}
+            >
+                <TimezoneClock
+                    locationName='AZ USA'
+                    timezone='America/Phoenix'
+                />
+                <TimezoneClock
+                    locationName='VIC Aust.'
+                    timezone='Australia/Melbourne'
+                />
+            </div>
         </>
     )
 }
