@@ -34,6 +34,8 @@ const PirateWeather: React.FC<{
         const fetchAndSetWeather = async () => {
             setWeatherUpdateJson(await fetchPirateWeatherUpdate(long, lat))
             setLastFetchTime(new Date(Date.now()))
+
+
         }
 
         fetchAndSetWeather()
@@ -70,7 +72,7 @@ const PirateWeather: React.FC<{
     const actualTemperature = `${actual.f}°F / ${actual.c}°C`
     const feelsLikeTemperature = `Feels like ${feelsLike.f}°F / ${feelsLike.c}°C`;
     const extraInfo = `
-        ${roundToOneDecimal(weatherUpdateJson.currently.humidity * 100)}% Humidity / ${roundToOneDecimal(weatherUpdateJson.currently.cloudCover * 100)}% Cloud cover`
+        ${roundToOneDecimal(nowWeatherDatapoint.humidity * 100)}% Humidity / ${roundToOneDecimal(nowWeatherDatapoint.cloudCover * 100)}% Cloud cover`
 
     return (
         <>

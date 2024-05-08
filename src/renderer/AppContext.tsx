@@ -2,6 +2,7 @@ import React from "react"
 
 export interface SECRETS {
     teslascopeApiKey?: string
+    teslafiApiKey?: string
 }
 
 interface Coords {

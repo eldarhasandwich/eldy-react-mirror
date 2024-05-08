@@ -1,7 +1,7 @@
 
 import React, { useContext, useEffect, useState } from 'react'
 import { Heading } from '../Display/Text';
-import { VehicleStatsResponse, fahrenheitToCelcius, fetchVehicleStats, minutesToHoursAndMinutes } from './utils';
+import { celcuisToFahrenheit, fahrenheitToCelcius, minutesToHoursAndMinutes, fetchVehicleStats, VehicleStatsResponse, getTemperaturesFromResponse } from './utils';
 import AppContext from 'renderer/AppContext';
 import { BLUE, DULL_GREY, GREEN } from 'renderer/constants';
 import { get12HrTime } from '../Clock/utils';
@@ -23,16 +23,14 @@ const ONE_MINUTE_MS = 60 * 1000;
 
 const TeslaStats: React.FC = () => {
 
-    const { teslascope, secrets } = useContext(AppContext);
+    const { secrets } = useContext(AppContext);
 
     const [ vehicleStats, setVehicleStats ] = useState<VehicleStatsResponse | undefined>(undefined);
+
     const [ lastFetchTime, setLastFetchTime ] = useState<Date>(new Date(Date.now()))
+    const [ lastFetchCode, setLastFetchCode ] = useState<number>(-1)
 
     const [ chargeAnimation, setChargeAnimation ] = useState<string>('')
-
-    if (!teslascope) {
-        return null
-    }
 
     useEffect(() => {
 
@@ -44,6 +42,11 @@ const TeslaStats: React.FC = () => {
             '< < < <',
             '< < < < <',
         ]
+
+        // const animationFrames = [
+        //     '(⁀ᗢ⁀)',
+        //     '(─‿─)'
+        // ]
 
         const interval = setInterval(() => {
             // don't ask, but it works
@@ -59,59 +62,62 @@ const TeslaStats: React.FC = () => {
 
     useEffect(() => {
         const fetchAndSetVehicleStats = async () => {
-            let vehicleStats = await fetchVehicleStats(teslascope.vehiclePublicId, secrets.teslascopeApiKey)
+            console.log({secrets})
+
+            let vehicleStats = await fetchVehicleStats(secrets.teslafiApiKey)
             setLastFetchTime(new Date(Date.now()))
-            setVehicleStats(vehicleStats)
+            setVehicleStats(vehicleStats.response)
+            setLastFetchCode(vehicleStats.responseCode)
         }
 
         fetchAndSetVehicleStats()
         const interval = setInterval(() => {
             fetchAndSetVehicleStats()
-        }, 9 * ONE_MINUTE_MS);
-        return () => clearInterval(interval);
+        }, 10 * ONE_MINUTE_MS);
+    return () => clearInterval(interval);
     }, []);
 
     if (!vehicleStats) {
         return (
             <Heading
-                content={'Teslascope | Failed to fetch vehicle stats'}
+                content={`Teslafi | Failed to fetch vehicle status, code ${lastFetchCode}`}
                 fontSize={14}
                 fontWeight={400}
             />
         )
     }
 
-    const isCharging = vehicleStats.battery.charging_state === 'Charging'
-    const isChargingComplete = vehicleStats.battery.charging_state === 'Complete'
+    const chargingState = vehicleStats.charging_state;
+    const batteryLevel = vehicleStats.battery_level;
+    const chargeLimit = vehicleStats.charge_limit_soc;
 
-    let chargeLevelString = `Battery | ${vehicleStats.battery.level}%`
+    const isCharging = chargingState === 'Charging'
+    const isChargingComplete = chargingState === 'Complete'
+
+    let chargeLevelString = `Battery | ${batteryLevel}%`
     let chargeLevelColor = 'white'
 
     if (isCharging) {
-
-        chargeLevelString = `${chargeAnimation} Charging | ${vehicleStats.battery.level}/${vehicleStats.battery.charge_limit_soc}%`
+        chargeLevelString = `${chargeAnimation} Charging | ${batteryLevel}/${chargeLimit}%`
         chargeLevelColor = GREEN
-
     }
 
     if (isChargingComplete) {
-
-        chargeLevelString = `Charge Complete | ${vehicleStats.battery.level}%`
+        chargeLevelString = `Charge Complete | ${batteryLevel}%`
         chargeLevelColor = BLUE
-    
     }
 
-    const temperatureString = `Interior: ${vehicleStats.climate.inside}°F / ${fahrenheitToCelcius(vehicleStats.climate.inside)}°C`
+    const temperatureString = `Interior: ${vehicleStats.inside_tempF}°F / ${vehicleStats.inside_temp}°C`
 
-    const chargeTimeRemaining = minutesToHoursAndMinutes(vehicleStats.battery.minutes_remaining);
-    const chargeTimeRemaingingString = (chargeTimeRemaining.hours !== 0 ? chargeTimeRemaining.hours.toString() + ` ${chargeTimeRemaining.hours === 1 ? 'hour' : 'hours'} ` : "")
-        + (chargeTimeRemaining.minutes !== 0 ? chargeTimeRemaining.minutes.toString() + " minutes " : "")
-        + "remaining"
+    // const chargeTimeRemaining = minutesToHoursAndMinutes(vehicleStats.battery.minutes_remaining);
+    // const chargeTimeRemaingingString = (chargeTimeRemaining.hours !== 0 ? chargeTimeRemaining.hours.toString() + ` ${chargeTimeRemaining.hours === 1 ? 'hour' : 'hours'} ` : "")
+    //     + (chargeTimeRemaining.minutes !== 0 ? chargeTimeRemaining.minutes.toString() + " minutes " : "")
+    //     + "remaining"
 
     return (
         <div style={{}} >
             <Heading
-                content={`Teslascope | x Gemini x | Last fetch @ ${ get12HrTime(lastFetchTime) }`}
+                content={`Teslafi | x Gemini x | Last fetch @ ${ get12HrTime(lastFetchTime) }`}
                 fontSize={12}
                 fontWeight={400}
             />
@@ -141,7 +147,7 @@ const TeslaStats: React.FC = () => {
                     <div
                         style={{
                             height: '100%',
-                            width: `${vehicleStats.battery.level}%`,
+                            width: `${batteryLevel}%`,
                             backgroundColor: chargeLevelColor,
                             float: 'right'
                         }}
@@ -149,7 +155,7 @@ const TeslaStats: React.FC = () => {
                     <div
                         style={{
                             height: '100%',
-                            width: `${vehicleStats.battery.charge_limit_soc - vehicleStats.battery.level}%`,
+                            width: `${parseInt(chargeLimit) - parseInt(batteryLevel)}%`,
                             backgroundColor: 'black',
                             float: 'right'
                         }}
@@ -158,7 +164,7 @@ const TeslaStats: React.FC = () => {
             </div>
             { /* end charge bar */ }
 
-            {
+            {/* {
                 isCharging && (
                     <Heading
                         content={chargeTimeRemaingingString}
@@ -166,7 +172,7 @@ const TeslaStats: React.FC = () => {
                         fontWeight={300}
                     />
                 )
-            }
+            } */}
 
             <h1 style={{
                 fontSize: 28,

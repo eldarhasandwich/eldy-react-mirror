@@ -1,6 +1,7 @@
 import AppContext, { AppContextType, CountdownListItem } from './AppContext';
 import './App.css';
 
+//@ts-ignore
 import countdowntimerCsv from '../../config/countdowntimers.csv'
 
 import Clock from './Components/Clock/Clock';
@@ -8,6 +9,7 @@ import PirateWeather from './Components/PirateWeather/PirateWeather';
 import CountdownList from './Components/CountdownList/CountdownList';
 import { useEffect, useState } from 'react';
 import TimelyReminder from './Components/TimelyReminder/TimelyReminder';
+import TeslaStats from './Components/TeslaStats/TeslaStats';
 
 export type Alignment = 'left' | 'right'
 
@@ -57,8 +59,6 @@ export default function App() {
 
       <div style={{
         height: '45vh',
-        paddingLeft: '1%',
-        paddingRight: '1%',
         paddingBottom: '2.5%'
       }}>
       
@@ -87,7 +87,7 @@ export default function App() {
             }}
           />
 
-          {/* <TeslaStats/> */}
+          <TeslaStats/>
 
         </div>
 
@@ -95,7 +95,6 @@ export default function App() {
 
       <div style={{
         height: '45vh',
-        padding: '1%'
       }}>
 
         <CountdownList/>

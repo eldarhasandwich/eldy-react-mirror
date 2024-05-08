@@ -1,24 +1,33 @@
 import { roundToOneDecimal } from "../PirateWeather/utils";
 
-interface BatteryInfo {
-    level: number;
-    range: string;
-    charge_limit_soc: number;
-    charging_state: string;
-    minutes_remaining: number;
-    time_remaining: string;
-    scheduled_charging_pending: boolean;
-    scheduled_charging_start_time: string | null;
-}
+// interface BatteryInfo {
+//     level: number;
+//     range: string;
+//     charge_limit_soc: number;
+//     charging_state: string;
+//     minutes_remaining: number;
+//     time_remaining: string;
+//     scheduled_charging_pending: boolean;
+//     scheduled_charging_start_time: string | null;
+// }
 
-interface ClimateInfo {
-    inside: number;
-    outside: number;
-}
+// interface ClimateInfo {
+//     inside: number;
+//     outside: number;
+// }
+
+// export interface VehicleStatsResponse {
+//     battery: BatteryInfo
+//     climate: ClimateInfo
+// }
 
 export interface VehicleStatsResponse {
-    battery: BatteryInfo
-    climate: ClimateInfo
+    battery_level: string;
+    charging_state: string;
+    charge_limit_soc: string;
+    inside_temp: string;
+    inside_tempF: string;
+    measure: string;
 }
 
 export const fahrenheitToCelcius = (f: number) => {
@@ -28,6 +37,28 @@ export const fahrenheitToCelcius = (f: number) => {
     );
 };
 
+export const celcuisToFahrenheit = (c: number): number => {
+    // (0°C × 9/5) + 32
+    return roundToOneDecimal(
+        (c * (9/5)) + 32
+    )
+}
+
+// export const getTemperaturesFromResponse = (response: VehicleStatsResponse): { c: number, f: number } => {
+
+//     if (response.measure === 'imperial') {
+//         return {
+//             c: fahrenheitToCelcius(parseFloat(response.inside_temp)),
+//             f: parseFloat(response.inside_temp)
+//         }
+//     }
+
+//     return {
+//         c: parseFloat(response.inside_temp),
+//         f: celcuisToFahrenheit(parseFloat(response.inside_temp))
+//     }
+// }
+
 export const minutesToHoursAndMinutes = (m: number): { hours: number, minutes: number } => {
     return {
         hours: Math.floor(m / 60),
@@ -35,34 +66,30 @@ export const minutesToHoursAndMinutes = (m: number): { hours: number, minutes: n
     }
 }
 
-const recursivelyReadStream = async (stream: ReadableStreamDefaultReader<Uint8Array>): Promise<Uint8Array | undefined> => {
-	const output = await stream.read();
-	if (output.done) {
-		return output.value;
-	}
+interface FetchVehicleStatsOutput {
+    responseCode: number;
+    response?: VehicleStatsResponse
+}
 
-	const nextValue = await recursivelyReadStream(stream);
-	if (nextValue === undefined) {
-		return output.value;
-	}
+export const fetchVehicleStats = async (apiKey?: string): Promise<FetchVehicleStatsOutput> => {
+    console.log({
+        apiKey
+    })
 
-	return new Uint8Array([...output.value, ...nextValue]);
-};
-
-export const fetchVehicleStats = async (publicId: string, apiKey?: string) => {
-
-    const apiKeyParam = apiKey ? `?api_key=${apiKey}` : ''
-
-    const requestUrl = `https://teslascope.com/api/vehicle/${publicId}` + apiKeyParam
+    if (!apiKey) return { responseCode: -1 };
+ 
+    const requestUrl = new URL('/feed.php', 'https://www.teslafi.com')
+    requestUrl.search = new URLSearchParams({ token: apiKey }).toString()
     const result = await fetch(requestUrl)
 
-    if (!result.body) return undefined
+    if (!result.body) return { responseCode: result.status }
 
-    const readBody = await recursivelyReadStream(result.body.getReader());
-	const readBodyString = new TextDecoder("utf-8").decode(readBody);        
-	const readBodyStringJson = JSON.parse(readBodyString);
+    const jsonBody = await result.json()
 
-    const vehicleStatsJson: VehicleStatsResponse = readBodyStringJson.response
-    
-    return vehicleStatsJson
+    console.log({
+        result,
+        json: jsonBody
+    })
+
+    return { responseCode: result.status, response: jsonBody };
 }

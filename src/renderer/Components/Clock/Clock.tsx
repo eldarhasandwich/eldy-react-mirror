@@ -15,7 +15,7 @@ const DailyCountdown: React.FC<{
     return <Heading
         content={countdownText}
         fontSize={24}
-        fontWeight={300}
+        fontWeight={200}
         opacity={countdownText.includes("ago") ? 0.4 : 1 }
     />
 }
