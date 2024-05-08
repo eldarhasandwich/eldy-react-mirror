@@ -55,7 +55,7 @@ const ForecastTable: React.FC<{
                         return (
                             <tr
                                 key={index}
-                                style={{ opacity, fontSize: 25, fontWeight: 300 }}
+                                style={{ opacity, fontSize: 25, fontWeight: 100 }}
                             >
                                 <>
                                     <TableCell content={displayDay} />

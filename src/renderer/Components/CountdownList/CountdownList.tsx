@@ -98,7 +98,7 @@ const CountdownList: React.FC = () => {
                                 opacity,
                                 color,
                                 fontSize: 24,
-                                fontWeight: 300
+                                fontWeight: 100
                             }}
                         >
                             <span>{name + ' -> '}</span>
@@ -106,7 +106,7 @@ const CountdownList: React.FC = () => {
 
                             <span style={{
                                 fontSize: 14,
-                                fontWeight: 600,
+                                fontWeight: 100,
                                 marginLeft: '20px',
                                 opacity: 0.6
                             }}>
