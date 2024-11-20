@@ -116,6 +116,10 @@ const Clock: React.FC = () => {
                     locationName='VIC Aust.'
                     timezone='Australia/Melbourne'
                 />
+                <TimezoneClock
+                    locationName='Bosnia'
+                    timezone='Europe/Sarajevo'
+                />
             </div>
         </>
     )
